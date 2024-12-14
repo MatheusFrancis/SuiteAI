@@ -7,38 +7,46 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class LinearRegression implements CostFunction, GradientDescent, DataPrep {
+public class LinearRegression implements CostFunction, GradientDescent {
 
-    private String pathfile;
-    private double[][] X;
-    private double[] y;
+    private Dataset dataset;
     private double alpha;
     private int iterations;
     private double[][] theta = {{0.0},{0.0}};
 
-    public LinearRegression(String pathfile, double alpha, int iterations) {
+    public LinearRegression(Dataset data, double alpha, int iterations) {
 
-        this.pathfile = pathfile;
+        this.dataset = data;
         this.alpha = alpha;
         this.iterations = iterations;
+
+    }
+
+    public DenseMatrix hypothesisFunction() {
+
+        DenseMatrix matrixX = new DenseMatrix(dataset.generateDesignMatrix());
+        DenseMatrix matrixTheta = new DenseMatrix(theta);
+
+        DenseMatrix matrixH = new DenseMatrix(matrixX.numRows(), matrixTheta.numColumns());
+        matrixX.mult(matrixTheta, matrixH);
+
+        return matrixH;
 
     }
 
     @Override
     public double computeCostFunction() {
 
-        int m = this.y.length;
-        double J = 0.0;
-        DenseMatrix matrixX = new DenseMatrix(this.X);
-        DenseMatrix matrixTheta = new DenseMatrix(this.theta);
 
-        DenseMatrix matrixH = new DenseMatrix(matrixX.numRows(), matrixTheta.numColumns());
-        matrixX.mult(matrixTheta, matrixH);
+        int m = dataset.getInstances().size();
+        double J = 0.0;
+        DenseMatrix matrixH = hypothesisFunction();
+
 
 
         for (int i = 0; i < matrixH.numRows(); i++) {
 
-            double value = matrixH.get(i, 0) - this.y[i];
+            double value = matrixH.get(i, 0) - dataset.getInstances().get(i).getLabel().getValue();
 
             J += value * value;
 
@@ -46,24 +54,18 @@ public class LinearRegression implements CostFunction, GradientDescent, DataPrep
 
         J *= 1.0 / (2.0 * m);
 
-        //System.out.println(J);
-
         return J;
 
     }
 
     public void computeGradientDescent() {
 
-        int m = this.y.length;
+        int m = dataset.getInstances().size();
         double[] J_history = new double[this.iterations];
 
         for (int iter = 0; iter < this.iterations; iter++) {
 
-            DenseMatrix matrixX = new DenseMatrix(this.X);
-            DenseMatrix matrixTheta = new DenseMatrix(this.theta);
-
-            DenseMatrix matrixH = new DenseMatrix(matrixX.numRows(), matrixTheta.numColumns());
-            matrixX.mult(matrixTheta, matrixH);
+            DenseMatrix matrixH = hypothesisFunction();
 
 
             double hmy = 0.0;
@@ -73,8 +75,11 @@ public class LinearRegression implements CostFunction, GradientDescent, DataPrep
 
                 for (int j = 0; j < matrixH.numColumns(); j++) {
 
-                    double value1 = this.X[i][0] * (matrixH.get(i, j) - this.y[i]);
-                    double value2 = this.X[i][1] * (matrixH.get(i, j) - this.y[i]);
+                    double value1 = dataset.generateDesignMatrix()[i][0] * (matrixH.get(i, j) -
+                            dataset.getInstances().get(i).getLabel().getValue());
+
+                    double value2 = dataset.generateDesignMatrix()[i][1] * (matrixH.get(i, j) -
+                            dataset.getInstances().get(i).getLabel().getValue());
 
                     hmy+= value1;
                     hmyx += value2;
@@ -105,40 +110,10 @@ public class LinearRegression implements CostFunction, GradientDescent, DataPrep
 
     }
 
+    /*
     @Override
     public void preparation() throws FileNotFoundException {
 
-
-        int textFileLength;
-        Scanner infile = new Scanner(new File(this.pathfile));
-
-        textFileLength = infile.nextInt();
-        this.X = new double[textFileLength][2];
-        this.y = new double[textFileLength];
-        for (int i = 0; i < textFileLength; i++) {
-
-            X[i][0] = 1.0;
-            X[i][1] = infile.nextDouble();
-            y[i] = infile.nextDouble();
-
-        }
-
-        infile.close();
-
-        double[] noIntercept = new double[textFileLength];
-        for (int j = 0; j < textFileLength; j++) {
-
-            noIntercept[j] = this.X[j][1];
-
-        }
-
-        //SwingUtilities.invokeLater(() -> {
-        Plotter myPlot = new Plotter();
-        myPlot.ScatterPlot(noIntercept, this.y);
-        myPlot.setSize(800, 600);
-        myPlot.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myPlot.setVisible(true);
-        //});
 
         DenseMatrix matrixX = new DenseMatrix(this.X);
         DenseMatrix matrixTheta = new DenseMatrix(this.theta);
@@ -166,7 +141,7 @@ public class LinearRegression implements CostFunction, GradientDescent, DataPrep
 
     }
 
-
+*/
 }
 
 
