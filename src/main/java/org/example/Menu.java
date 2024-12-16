@@ -46,15 +46,30 @@ public class Menu {
 
     public void applyModel() {
 
+        LinearRegression regLin;
         System.out.println("Select the machine learning method: ");
         System.out.println("Type (1) for linear regression and (2) for another");
 
         int rep = myScanner.nextInt();
         if (rep == 1) {
 
-            LinearRegression regLin = new LinearRegression(myDataset, 0.01, 1500);
-            regLin.computeCostFunction();
-            regLin.computeGradientDescent();
+            double[][] theta = new double[myDataset.generateDesignMatrix()[0].length][1];
+
+            System.out.println("Digite o valor inicial do parâmetro theta: ");
+            for (int i = 0; i < myDataset.generateDesignMatrix()[0].length; i++) {
+
+                System.out.println("Valor de theta " + i + " :" );
+                theta[i][0] = myScanner.nextDouble();
+
+            }
+
+            HypothesisFunction hypothesisFunction = new LinearHypothesis();
+            CostFunction lossFunction = new MSE();
+            Optimizer gradientDescent = new GradientDescent(0.01, 1500);
+
+            regLin = new LinearRegression(lossFunction, gradientDescent);
+
+            regLin.fit(myDataset, theta);
 
 
         }
