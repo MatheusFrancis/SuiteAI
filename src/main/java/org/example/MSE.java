@@ -1,17 +1,25 @@
 package org.example;
 
+
 import no.uib.cipr.matrix.DenseMatrix;
 
 public class MSE implements CostFunction {
 
+
+    private HypothesisFunction hypothesisFunction;
+
+    public MSE(HypothesisFunction hypothesisFunction) {
+
+        this.hypothesisFunction = hypothesisFunction;
+
+    }
 
     @Override
     public double compute(Dataset dataset, double[][] parameters) {
 
         int m = dataset.getInstances().size();
         double J = 0.0;
-        HypothesisFunction linear = new LinearHypothesis();
-        DenseMatrix matrixH = linear.compute(dataset, parameters);
+        DenseMatrix matrixH = hypothesisFunction.compute(dataset, parameters);
 
         for (int i = 0; i < matrixH.numRows(); i++) {
 

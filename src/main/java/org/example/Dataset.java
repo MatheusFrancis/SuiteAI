@@ -76,17 +76,46 @@ public class Dataset {
 
     }
 
-    public double[] generateColumnArray(int column) {
+    public double[][] generateDesignMatrixNormalized() {
 
-        double[] columnArray = new double[instances.size()];
+        double[][] designMatrixNormalized = generateDesignMatrix();
+
+        StatisticalMatrix stat = new StatisticalMatrix();
+        double[] mu = stat.matrixMean(designMatrixNormalized);
+        double[] sigma = stat.matrixStandardDeviation(designMatrixNormalized);
+
+        for (int i = 0; i < designMatrixNormalized[0].length - 1; i++) {   //preserve the intercept column
+
+            for (int j = 0; j < designMatrixNormalized.length; j++) {
+
+
+                designMatrixNormalized[j][i + 1] -= mu[i];
+                designMatrixNormalized[j][i + 1] /= sigma[i];
+
+
+
+            }
+        }
+        return designMatrixNormalized;
+    }
+
+    public double[][] generateFeaturesArray() {
+
+        double[][] featuresArray = new double[instances.getFirst().getFeatures().size()][instances.size()];
 
         for (int i = 0; i < instances.size(); i++) {
 
-            columnArray[i] = instances.get(i).getFeatures().get(column).getValue();
+            for (int j = 0; j < instances.getFirst().getFeatures().size(); j++) {
+
+                featuresArray[i][j] = instances.get(i).getFeatures().get(j).getValue();
+
+
+            }
+
 
         }
 
-        return columnArray;
+        return featuresArray;
 
     }
 

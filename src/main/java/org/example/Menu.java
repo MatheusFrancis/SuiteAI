@@ -17,8 +17,7 @@ public class Menu {
     public void openDataset() throws FileNotFoundException {
 
         myDataset = new Dataset();
-        myDataset.importFile("/home/matheus/Downloads/PrasannaNatarajan-Coursera" +
-                "-Machine-Learning-Andrew-NG-7c18e24/machine-learning-ex1/ex1/ex1data2.txt");
+        myDataset.importFile("/home/matheus/Downloads/inputFiles/ex1data2.txt");
 
     }
 
@@ -34,7 +33,7 @@ public class Menu {
 
         if (rep == 1) {
 
-            myPlot.ScatterPlot(myDataset.generateColumnArray(0), myDataset.generateLabelArray());
+            myPlot.ScatterPlot(myDataset.generateFeaturesArray(), myDataset.generateLabelArray());
 
             myPlot.setSize(800, 600);
             myPlot.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,6 +42,7 @@ public class Menu {
         }
 
     }
+
 
     public void applyModel() {
 
@@ -63,9 +63,20 @@ public class Menu {
 
             }
 
-            HypothesisFunction hypothesisFunction = new LinearHypothesis();
-            CostFunction lossFunction = new MSE();
-            Optimizer gradientDescent = new GradientDescent(0.01, 1500);
+            System.out.println("Deseja normalizar os atributos do seu conjunto de dados?");
+            System.out.println("Digite (1) para normalizar (RECOMENDADO) e (0) para NÃO normalizar");
+
+            rep = myScanner.nextInt();
+            boolean normalize;
+            if (rep == 1) normalize = true;
+            else normalize = false;
+
+
+
+            HypothesisFunction hypothesisFunction = new LinearHypothesis(normalize);
+            CostFunction lossFunction = new MSE(hypothesisFunction);
+            Optimizer gradientDescent = new GradientDescent(0.01, 1500, lossFunction,
+                    hypothesisFunction, normalize);
 
             regLin = new LinearRegression(lossFunction, gradientDescent);
 
