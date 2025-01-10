@@ -19,9 +19,9 @@ public class LinearRegression extends Model{
 
     }
 
-    public void fit(Dataset data, double[][] parameters) {
+    public double[][] fit(Dataset data, double[][] parameters) {
 
-        optimizer.compute(data, costFunction, parameters);
+        return optimizer.compute(data, costFunction, parameters);
 
     }
 

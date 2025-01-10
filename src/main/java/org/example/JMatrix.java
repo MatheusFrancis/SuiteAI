@@ -72,4 +72,21 @@ public class JMatrix {
             System.out.println();
         }
     }
+
+    public double[][] convertToArray(DenseMatrix denseMatrix) {
+
+        double[][] arrayConverted = new double[denseMatrix.numRows()][denseMatrix.numColumns()];
+
+        for (int i = 0; i < denseMatrix.numRows(); i++) {
+
+            for (int j = 0; j < denseMatrix.numColumns(); j++) {
+
+                arrayConverted[i][j] = denseMatrix.get(i, j);
+
+            }
+        }
+
+        return arrayConverted;
+
+    }
 }

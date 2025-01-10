@@ -7,23 +7,20 @@ public class GradientDescent implements Optimizer {
 
     private double learningRate;
     private int iterations;
-    private CostFunction lossFunction;
     private boolean normalize;
-    private HypothesisFunction hypothesisFunction;
 
-    public GradientDescent(double learningRate, int iterations, CostFunction lossFunction,
-                           HypothesisFunction hypothesisFunction, boolean normalize) {
+    public GradientDescent(double learningRate, int iterations, boolean normalize) {
 
         this.learningRate = learningRate;
         this.iterations = iterations;
-        this.lossFunction = lossFunction;
+        //this.lossFunction = lossFunction;
         this.normalize = normalize;
-        this.hypothesisFunction = hypothesisFunction;
+        //this.hypothesisFunction = hypothesisFunction;
 
     }
 
     @Override
-    public void compute(Dataset dataset, CostFunction costFunction, double[][] parameters) {
+    public double[][] compute(Dataset dataset, CostFunction costFunction, double[][] parameters) {
 
 
         int m = dataset.getInstances().size();
@@ -49,8 +46,11 @@ public class GradientDescent implements Optimizer {
             prediction.scale(learningRate / m);
 
             matrixTheta = operations.subtract(matrixTheta, prediction);
-            operations.printMatrix(matrixTheta);
+            //operations.printMatrix(matrixTheta);
         }
+
+        return operations.convertToArray(matrixTheta);
+
 
 
     }

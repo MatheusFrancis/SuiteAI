@@ -6,7 +6,8 @@ import javax.swing.*;
 public class Menu {
 
     private Scanner myScanner;
-    Dataset myDataset;
+    Dataset trainSet;
+    Dataset testSet;
 
     public Menu() {
 
@@ -16,8 +17,12 @@ public class Menu {
 
     public void openDataset() throws FileNotFoundException {
 
-        myDataset = new Dataset();
-        myDataset.importFile("/home/matheus/Downloads/inputFiles/ex1data2.txt");
+        trainSet = new Dataset();
+        trainSet.importFile("/home/matheus/Downloads/inputFiles/ex1data2.txt");
+
+        testSet = new Dataset();
+        testSet.importFile("/home/matheus/Downloads/inputFiles/test.txt");
+
 
     }
 
@@ -33,7 +38,7 @@ public class Menu {
 
         if (rep == 1) {
 
-            myPlot.ScatterPlot(myDataset.generateFeaturesArray(), myDataset.generateLabelArray());
+            myPlot.ScatterPlot(trainSet.generateFeaturesArray(), trainSet.generateLabelArray());
 
             myPlot.setSize(800, 600);
             myPlot.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,13 +58,13 @@ public class Menu {
         int rep = myScanner.nextInt();
         if (rep == 1) {
 
-            double[][] theta = new double[myDataset.generateDesignMatrix()[0].length][1];
+            double[][] parameter = new double[trainSet.generateDesignMatrix()[0].length][1];
 
             System.out.println("Digite o valor inicial do parâmetro theta: ");
-            for (int i = 0; i < myDataset.generateDesignMatrix()[0].length; i++) {
+            for (int i = 0; i < trainSet.generateDesignMatrix()[0].length; i++) {
 
                 System.out.println("Valor de theta " + i + " :" );
-                theta[i][0] = myScanner.nextDouble();
+                parameter[i][0] = myScanner.nextDouble();
 
             }
 
@@ -75,20 +80,24 @@ public class Menu {
 
             HypothesisFunction hypothesisFunction = new LinearHypothesis(normalize);
             CostFunction lossFunction = new MSE(hypothesisFunction);
-            Optimizer gradientDescent = new GradientDescent(0.01, 1500, lossFunction,
-                    hypothesisFunction, normalize);
+            Optimizer gradientDescent = new GradientDescent(0.03, 400, normalize);
 
             regLin = new LinearRegression(lossFunction, gradientDescent);
 
-            regLin.fit(myDataset, theta);
+            parameter = regLin.fit(trainSet, parameter);
+
+            //predict values for the test set
+            JMatrix example = new JMatrix();
+            example.printMatrix(hypothesisFunction.compute(testSet, parameter));
+
+
+
 
 
         }
 
 
-
-
-
     }
+
 
 }
