@@ -46,7 +46,6 @@ public class StatisticalMatrix {
             std[i] /= numRows + 1;
             std[i] = Math.sqrt(std[i]);
 
-
         }
 
         return std;

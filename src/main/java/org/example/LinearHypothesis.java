@@ -12,21 +12,6 @@ public class LinearHypothesis implements HypothesisFunction {
 
     }
 
-    public DenseMatrix compute2(Dataset dataset, double[][] theta) {
-
-        DenseMatrix matrixX;
-
-        if (normalize) matrixX = new DenseMatrix(dataset.generateDesignMatrixNormalized());
-        else matrixX = new DenseMatrix(dataset.generateDesignMatrix());
-
-        DenseMatrix matrixTheta = new DenseMatrix(theta);
-
-        DenseMatrix matrixH = new DenseMatrix(matrixX.numRows(), matrixTheta.numColumns());
-        matrixX.mult(matrixTheta, matrixH);
-
-        return matrixH;
-
-    }
 
     @Override
     public DenseMatrix compute(Dataset dataset, double[][] theta) {
@@ -38,7 +23,10 @@ public class LinearHypothesis implements HypothesisFunction {
         else matrixX = operations.create(dataset.generateDesignMatrix());
 
         DenseMatrix matrixTheta = operations.create(theta);
-
+        System.out.println("Matrix X: ");
+        operations.printMatrix(matrixX);
+        System.out.println("Matrix Theta: ");
+        operations.printMatrix(matrixTheta);
 
         return operations.multiply(matrixX, matrixTheta);
 

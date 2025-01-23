@@ -14,6 +14,7 @@ public class JMatrix {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 denseMatrix.set(i, j, entry[i][j]);
+
             }
         }
 

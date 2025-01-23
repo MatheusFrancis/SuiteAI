@@ -58,7 +58,6 @@ public class Dataset {
 
     public double[][] generateDesignMatrix() {
 
-
         double[][] designMatrix = new double[instances.size()][instances.getFirst().getFeatures().size() + 1];
 
         for (int i = 0; i < instances.size(); i++) {
@@ -84,14 +83,15 @@ public class Dataset {
         double[] mu = stat.matrixMean(designMatrixNormalized);
         double[] sigma = stat.matrixStandardDeviation(designMatrixNormalized);
 
+
         for (int i = 0; i < designMatrixNormalized[0].length - 1; i++) {   //preserve the intercept column
 
             for (int j = 0; j < designMatrixNormalized.length; j++) {
 
 
                 designMatrixNormalized[j][i + 1] -= mu[i];
-                designMatrixNormalized[j][i + 1] /= sigma[i];
-
+                if (sigma[i] == 0) designMatrixNormalized[j][i + 1] = 0;   //avoid division by zero
+                else designMatrixNormalized[j][i + 1] /= sigma[i];
 
 
             }

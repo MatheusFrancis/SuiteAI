@@ -35,6 +35,7 @@ public class GradientDescent implements Optimizer {
             if (normalize) matrixX = operations.create(dataset.generateDesignMatrixNormalized());
             else matrixX = operations.create(dataset.generateDesignMatrix());
 
+
             DenseMatrix matrixH = operations.multiply(matrixX, matrixTheta);
 
             double[][] labelArray = {dataset.generateLabelArray()};
@@ -46,7 +47,9 @@ public class GradientDescent implements Optimizer {
             prediction.scale(learningRate / m);
 
             matrixTheta = operations.subtract(matrixTheta, prediction);
-            //operations.printMatrix(matrixTheta);
+            //System.out.println("-------------------------------------");
+            //operations.printMatrix(matrixX);
+            //System.out.println("-------------------------------------");
         }
 
         return operations.convertToArray(matrixTheta);

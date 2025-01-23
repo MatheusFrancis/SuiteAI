@@ -18,10 +18,10 @@ public class Menu {
     public void openDataset() throws FileNotFoundException {
 
         trainSet = new Dataset();
-        trainSet.importFile("/home/matheus/Downloads/inputFiles/ex1data2.txt");
+        trainSet.importFile("/home/matheus/housingTraining.txt");
 
         testSet = new Dataset();
-        testSet.importFile("/home/matheus/Downloads/inputFiles/test.txt");
+        testSet.importFile("/home/matheus/housingTest.txt");
 
 
     }
@@ -80,7 +80,7 @@ public class Menu {
 
             HypothesisFunction hypothesisFunction = new LinearHypothesis(normalize);
             CostFunction lossFunction = new MSE(hypothesisFunction);
-            Optimizer gradientDescent = new GradientDescent(0.03, 400, normalize);
+            Optimizer gradientDescent = new GradientDescent(0.01, 400, normalize);
 
             regLin = new LinearRegression(lossFunction, gradientDescent);
 
@@ -89,6 +89,7 @@ public class Menu {
             //predict values for the test set
             JMatrix example = new JMatrix();
             example.printMatrix(hypothesisFunction.compute(testSet, parameter));
+
 
 
 
