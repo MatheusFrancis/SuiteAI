@@ -1,5 +1,6 @@
 package screens.applyModel;
 
+import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
 
@@ -25,7 +26,7 @@ public class ApplyModelParameterScreen {
         thetaInput.setHorizontalAlignment(JTextField.CENTER);
 
         JButton continueButton = new JButton("Continuar");
-        continueButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), ""));
+        continueButton.addActionListener(_ -> continueClick(cl, mainFrame, thetaInput.getText()));
 
         JButton backButton = new JButton("Voltar");
         backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "ApplyModel"));
@@ -44,5 +45,15 @@ public class ApplyModelParameterScreen {
         frame.add(wrapperPanel, BorderLayout.CENTER);
 
         return frame;
+    }
+
+    static private void continueClick(CardLayout cl, JFrame mainFrame, String parameter) {
+        if (parameter.isEmpty()) {
+            JOptionPane.showMessageDialog(mainFrame, "Necessário valor", "Erro", JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+
+        cl.show(mainFrame.getContentPane(), "ApplyModelDirectory");
     }
 }
