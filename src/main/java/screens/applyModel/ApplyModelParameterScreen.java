@@ -1,0 +1,48 @@
+package screens.applyModel;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class ApplyModelParameterScreen {
+    static public JPanel getPanel(CardLayout cl, JFrame mainFrame) {
+        JPanel frame = new JPanel();
+
+        JPanel wrapperPanel = new JPanel(new GridBagLayout());
+        JPanel principalPanel = new JPanel();
+        principalPanel.setLayout(new BoxLayout(principalPanel, BoxLayout.PAGE_AXIS));
+
+        JLabel titleLabel = new JLabel("Aplicar Modelo");
+        titleLabel.setFont(new Font("Arial", Font.PLAIN, 32));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel subtitleLabel = new JLabel("Digite o valor do parametro theta");
+        subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JTextField thetaInput = new JTextField();
+        thetaInput.setMaximumSize(new Dimension(200, 30));
+        thetaInput.setAlignmentX(Component.CENTER_ALIGNMENT);
+        thetaInput.setHorizontalAlignment(JTextField.CENTER);
+
+        JButton continueButton = new JButton("Continuar");
+        continueButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), ""));
+
+        JButton backButton = new JButton("Voltar");
+        backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "ApplyModel"));
+
+        continueButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        principalPanel.add(titleLabel);
+        principalPanel.add(Box.createVerticalStrut(200));
+        principalPanel.add(subtitleLabel);
+        principalPanel.add(Box.createVerticalStrut(40));
+        principalPanel.add(thetaInput);
+        principalPanel.add(continueButton);
+        principalPanel.add(backButton);
+        wrapperPanel.add(principalPanel);
+        frame.add(wrapperPanel, BorderLayout.CENTER);
+
+        return frame;
+    }
+}

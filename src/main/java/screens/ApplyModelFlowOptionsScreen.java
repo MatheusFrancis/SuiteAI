@@ -13,7 +13,9 @@ public class ApplyModelFlowOptionsScreen {
 
         JPanel buttonsPanel = new JPanel();
         JButton button1 = new JButton("Regressão Linear");
+        button1.addActionListener(_ -> buttonClick("", cl, mainFrame));
         JButton button2 = new JButton("Regressão Logística");
+        button2.addActionListener(_ -> buttonClick("", cl, mainFrame));
         JButton button3 = new JButton("-------");
 
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
@@ -48,5 +50,9 @@ public class ApplyModelFlowOptionsScreen {
         frame.add(wrapperPanel, BorderLayout.CENTER);
 
         return frame;
+    }
+
+    static private void buttonClick(String model, CardLayout cl, JFrame mainFrame) {
+        cl.show(mainFrame.getContentPane(), "ApplyModelParameter");
     }
 }
