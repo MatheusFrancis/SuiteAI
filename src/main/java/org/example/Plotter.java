@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class Plotter extends JFrame {
 
-    public void ScatterPlot(double[] firstDim, double[] secondDim) {
+    public void ScatterPlot(double[][] firstDim, double[] secondDim) {
 
 
 
@@ -18,7 +18,7 @@ public class Plotter extends JFrame {
 
         // Add data points from the two 1D arrays (xData, yData)
         for (int i = 0; i < firstDim.length; i++) {
-            series.add(firstDim[i], secondDim[i]);
+            series.add(firstDim[i][0], secondDim[i]);
         }
 
         // Create a dataset and add the series to it

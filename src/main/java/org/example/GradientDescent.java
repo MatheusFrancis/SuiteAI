@@ -1,72 +1,58 @@
 package org.example;
 
 import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.DenseVector;
 
 public class GradientDescent implements Optimizer {
 
     private double learningRate;
     private int iterations;
+    private boolean normalize;
 
-    public GradientDescent(double learningRate, int iterations) {
+    public GradientDescent(double learningRate, int iterations, boolean normalize) {
 
         this.learningRate = learningRate;
         this.iterations = iterations;
+        //this.lossFunction = lossFunction;
+        this.normalize = normalize;
+        //this.hypothesisFunction = hypothesisFunction;
 
     }
 
     @Override
-    public void compute(Dataset dataset, CostFunction costFunction, double[][] parameters) {
+    public double[][] compute(Dataset dataset, CostFunction costFunction, double[][] parameters) {
+
 
         int m = dataset.getInstances().size();
         double[] J_history = new double[iterations];
+        JMatrix operations = new JMatrix();
+        DenseMatrix matrixTheta = operations.create(parameters);
 
         for (int iter = 0; iter < iterations; iter++) {
 
-            HypothesisFunction linear = new LinearHypothesis();
-            DenseMatrix matrixH = linear.compute(dataset, parameters);
+            DenseMatrix matrixX;
+
+            if (normalize) matrixX = operations.create(dataset.generateDesignMatrixNormalized());
+            else matrixX = operations.create(dataset.generateDesignMatrix());
 
 
-            double hmy = 0.0;
-            double hmyx = 0.0;
+            DenseMatrix matrixH = operations.multiply(matrixX, matrixTheta);
 
-            for (int i = 0; i < matrixH.numRows(); i++) {
+            double[][] labelArray = {dataset.generateLabelArray()};
+            DenseMatrix matrixY = operations.create(labelArray);
+            DenseMatrix prediction = operations.subtract(matrixH, operations.transpose(matrixY));
+            prediction = operations.transpose(prediction);
+            prediction = operations.multiply(prediction, matrixX);
+            prediction = operations.transpose(prediction);
+            prediction.scale(learningRate / m);
 
-                for (int j = 0; j < matrixH.numColumns(); j++) {
-
-                    double value1 = dataset.generateDesignMatrix()[i][0] * (matrixH.get(i, j) -
-                            dataset.getInstances().get(i).getLabel().getValue());
-
-                    double value2 = dataset.generateDesignMatrix()[i][1] * (matrixH.get(i, j) -
-                            dataset.getInstances().get(i).getLabel().getValue());
-
-                    hmy+= value1;
-                    hmyx += value2;
-
-
-                }
-
-            }
-
-            hmy /= m;
-            hmyx /= m;
-
-            double temp1 = parameters[0][0] - (learningRate * hmy);
-            double temp2 = parameters[1][0] - (learningRate * hmyx);
-            parameters[0][0] = temp1;
-            parameters[1][0] = temp2;
-
-            CostFunction lossFunction = new MSE();
-            J_history[iter] = lossFunction.compute(dataset, parameters);
-
-
-
-
-
+            matrixTheta = operations.subtract(matrixTheta, prediction);
+            //System.out.println("-------------------------------------");
+            //operations.printMatrix(matrixX);
+            //System.out.println("-------------------------------------");
         }
 
-
-        System.out.println(parameters[0][0]);
-        System.out.println(parameters[1][0]);
+        return operations.convertToArray(matrixTheta);
 
 
 
