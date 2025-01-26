@@ -1,6 +1,7 @@
 package screens;
 
 import screens.applyModel.ApplyModelParameterScreen;
+import screens.applyModel.ApplyModelSelectDirectoryScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class MainFrame {
         frame.add(MenuScreen.getPanel(cl, frame), "MenuScreen");
         frame.add(ApplyModelFlowOptionsScreen.getPanel(cl, frame), "ApplyModel");
         frame.add(ApplyModelParameterScreen.getPanel(cl, frame), "ApplyModelParameter");
+        frame.add(ApplyModelSelectDirectoryScreen.getPanel(cl, frame), "ApplyModelDirectory");
 
         frame.setVisible(true);
     }
