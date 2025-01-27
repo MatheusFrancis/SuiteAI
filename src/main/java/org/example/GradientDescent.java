@@ -13,9 +13,7 @@ public class GradientDescent implements Optimizer {
 
         this.learningRate = learningRate;
         this.iterations = iterations;
-        //this.lossFunction = lossFunction;
         this.normalize = normalize;
-        //this.hypothesisFunction = hypothesisFunction;
 
     }
 
@@ -47,9 +45,7 @@ public class GradientDescent implements Optimizer {
             prediction.scale(learningRate / m);
 
             matrixTheta = operations.subtract(matrixTheta, prediction);
-            //System.out.println("-------------------------------------");
-            //operations.printMatrix(matrixX);
-            //System.out.println("-------------------------------------");
+
         }
 
         return operations.convertToArray(matrixTheta);

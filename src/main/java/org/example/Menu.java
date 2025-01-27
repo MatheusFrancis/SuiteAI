@@ -51,40 +51,44 @@ public class Menu {
 
     public void applyModel() {
 
-        LinearRegression regLin;
+        Model myModel;
+        HypothesisFunction hypothesisFunction;
+        CostFunction lossFunction;
+        Optimizer gradientDescent;
+
+        double[][] parameter = new double[trainSet.generateDesignMatrix()[0].length][1];
+
         System.out.println("Select the machine learning method: ");
-        System.out.println("Type (1) for linear regression and (2) for another");
+        System.out.println("Type (1) for linear regression and (2) for logistic regression: ");
 
         int rep = myScanner.nextInt();
+
+        System.out.println("Digite o valor inicial do parâmetro theta: ");
+        for (int i = 0; i < trainSet.generateDesignMatrix()[0].length; i++) {
+
+            System.out.println("Valor de theta " + i + " :" );
+            parameter[i][0] = myScanner.nextDouble();
+
+        }
+
+        System.out.println("Deseja normalizar os atributos do seu conjunto de dados?");
+        System.out.println("Digite (1) para normalizar (RECOMENDADO) e (0) para NÃO normalizar");
+
+        int rep2 = myScanner.nextInt();
+        boolean normalize;
+        if (rep2 == 1) normalize = true;
+        else normalize = false;
+
         if (rep == 1) {
 
-            double[][] parameter = new double[trainSet.generateDesignMatrix()[0].length][1];
 
-            System.out.println("Digite o valor inicial do parâmetro theta: ");
-            for (int i = 0; i < trainSet.generateDesignMatrix()[0].length; i++) {
+            hypothesisFunction = new LinearHypothesis(normalize);
+            lossFunction = new MSE(hypothesisFunction);
+            gradientDescent = new GradientDescent(0.01, 400, normalize);
 
-                System.out.println("Valor de theta " + i + " :" );
-                parameter[i][0] = myScanner.nextDouble();
+            myModel = new LinearRegression(lossFunction, gradientDescent);
 
-            }
-
-            System.out.println("Deseja normalizar os atributos do seu conjunto de dados?");
-            System.out.println("Digite (1) para normalizar (RECOMENDADO) e (0) para NÃO normalizar");
-
-            rep = myScanner.nextInt();
-            boolean normalize;
-            if (rep == 1) normalize = true;
-            else normalize = false;
-
-
-
-            HypothesisFunction hypothesisFunction = new LinearHypothesis(normalize);
-            CostFunction lossFunction = new MSE(hypothesisFunction);
-            Optimizer gradientDescent = new GradientDescent(0.01, 400, normalize);
-
-            regLin = new LinearRegression(lossFunction, gradientDescent);
-
-            parameter = regLin.fit(trainSet, parameter);
+            parameter = myModel.fit(trainSet, parameter);
 
             //predict values for the test set
             JMatrix example = new JMatrix();
@@ -97,8 +101,21 @@ public class Menu {
 
         }
 
+        else {
+
+            hypothesisFunction =  new Sigmoid(normalize);
+            lossFunction = new CrossEntropy(hypothesisFunction, normalize);
+            gradientDescent = new GradientDescent(0.01, 400, normalize);
+
+            myModel = new LogisticRegression(lossFunction, gradientDescent);
+
+
+
+        }
+
 
     }
+
 
 
 }

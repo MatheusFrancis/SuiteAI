@@ -7,10 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class LinearRegression extends Model{
+public class LogisticRegression extends Model{
 
 
-    public LinearRegression(CostFunction costFunction, Optimizer optimizer) {
+    public LogisticRegression(CostFunction costFunction, Optimizer optimizer) {
         super(costFunction, optimizer);
         this.costFunction = costFunction;
         this.optimizer = optimizer;

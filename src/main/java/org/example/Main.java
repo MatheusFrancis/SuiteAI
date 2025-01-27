@@ -10,7 +10,7 @@ public class Main {
         Menu myMenu = new Menu();
         myMenu.openDataset();
         myMenu.applyModel();
-        myMenu.plotDataset();
+        //myMenu.plotDataset();
 
     }
 }
