@@ -55,8 +55,8 @@ public class ChooseNormalize {
     static private void buttonClick(boolean normalize, CardLayout cl, JFrame mainFrame, Menu menu) {
         menu.setNormalize(normalize);
 
-        menu.runModel();
+        mainFrame.add(ChooseCostFunction.getPanel(cl, mainFrame, menu), "CostFunction");
 
-        cl.show(mainFrame.getContentPane(), "");
+        cl.show(mainFrame.getContentPane(), "CostFunction");
     }
 }

@@ -81,7 +81,7 @@ public class SelectParameter {
     }
 
     static private void continueClick(CardLayout cl, JFrame mainFrame, List<JTextField> inputs, Menu menu) {
-        JTextField[] inputsArray = (JTextField[]) inputs.toArray();
+        JTextField[] inputsArray = inputs.toArray(new JTextField[0]);
         double[][] parameterList = new double[inputsArray.length][1];
 
         for (int i = 0; i < inputsArray.length; i++) {

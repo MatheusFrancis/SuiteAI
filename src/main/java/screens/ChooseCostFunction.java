@@ -46,6 +46,7 @@ public class ChooseCostFunction {
         principalPanel.add(Box.createVerticalStrut(40));
         principalPanel.add(dropdown);
         principalPanel.add(Box.createVerticalStrut(20));
+        principalPanel.add(continueButton);
         principalPanel.add(backButton);
         wrapperPanel.add(principalPanel);
         frame.add(wrapperPanel, BorderLayout.CENTER);
