@@ -96,7 +96,7 @@ public class SelectParameter {
             parameterList[i][0] = Double.parseDouble(actualParameter);
         }
 
-        menu.setParameter("");
+        menu.setParameter(parameterList);
         cl.show(mainFrame.getContentPane(), "Normalize");
     }
 }

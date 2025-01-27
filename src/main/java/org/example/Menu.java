@@ -9,7 +9,7 @@ public class Menu {
     Dataset trainSet;
     Dataset testSet;
     private int model;
-    private String parameter;
+    private double[][] parameterMatrix;
     private boolean normalize;
 
     public Menu() {
@@ -25,8 +25,6 @@ public class Menu {
 
         testSet = new Dataset();
         testSet.importFile("/home/matheus/housingTest.txt");
-
-
     }
 
     public void openTrainDataset(String path) throws FileNotFoundException {
@@ -68,12 +66,12 @@ public class Menu {
         return this.model;
     }
 
-    public void setParameter(String newParameter) {
-        this.parameter = newParameter;
+    public void setParameter(double[][] newParameter) {
+        this.parameterMatrix = newParameter;
     }
 
-    public String getParameter() {
-        return this.parameter;
+    public double[][] getParameter() {
+        return this.parameterMatrix;
     }
 
     public void setNormalize(boolean normalize) {
@@ -95,10 +93,9 @@ public class Menu {
             lossFunction = new MSE(hypothesisFunction);
             gradientDescent = new GradientDescent(0.01, 400, this.normalize);
 
-            myModel = new LinearRegression(lossFunction, gradientDescent);
-            double[][] parameterList = new double[this.trainSet.generateDesignMatrix()[0].length][1];
+            myModel = new LinearRegression(hypothesisFunction, gradientDescent);
 
-            double[][] modelFit = myModel.fit(this.trainSet, parameterList);
+            double[][] modelFit = myModel.fit(this.trainSet, parameterMatrix);
 
             //predict values for the test set
             JMatrix example = new JMatrix();
@@ -108,7 +105,7 @@ public class Menu {
             lossFunction = new CrossEntropy(hypothesisFunction, this.normalize);
             gradientDescent = new GradientDescent(0.01, 400, this.normalize);
 
-            myModel = new LogisticRegression(lossFunction, gradientDescent);
+            myModel = new LogisticRegression(hypothesisFunction, gradientDescent);
         }
     }
 
@@ -149,7 +146,7 @@ public class Menu {
             lossFunction = new MSE(hypothesisFunction);
             gradientDescent = new GradientDescent(0.01, 400, normalize);
 
-            myModel = new LinearRegression(lossFunction, gradientDescent);
+            myModel = new LinearRegression(hypothesisFunction, gradientDescent);
 
             parameter = myModel.fit(trainSet, parameter);
 
@@ -170,7 +167,7 @@ public class Menu {
             lossFunction = new CrossEntropy(hypothesisFunction, normalize);
             gradientDescent = new GradientDescent(0.01, 400, normalize);
 
-            myModel = new LogisticRegression(lossFunction, gradientDescent);
+            myModel = new LogisticRegression(hypothesisFunction, gradientDescent);
 
 
 
