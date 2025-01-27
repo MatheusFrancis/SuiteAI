@@ -26,6 +26,15 @@ public class Menu {
 
     }
 
+    public void openTrainDataset(String path) throws FileNotFoundException {
+        trainSet = new Dataset();
+        trainSet.importFile(path);
+    }
+
+    public void openTestDataset(String path) throws FileNotFoundException {
+        testSet = new Dataset();
+        testSet.importFile(path);
+    }
 
     public void plotDataset() {
 

@@ -5,6 +5,7 @@ import org.example.Menu;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class SelectTestFile {
     static private String filePath = "";
@@ -56,7 +57,15 @@ public class SelectTestFile {
     }
 
     static public void continueButtonClick(CardLayout cl, JFrame mainFrame, Menu menu) {
-//        menu.openTestDataset(filePath);
+        try {
+            menu.openTestDataset(filePath);
+
+            cl.show(mainFrame.getContentPane(), "ApplyModel");
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(mainFrame, "Arquivo não suportado", "Erro", JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
     }
 
     static public void selectButtonClick(JLabel directoryLabel, JFrame mainFrame) {
