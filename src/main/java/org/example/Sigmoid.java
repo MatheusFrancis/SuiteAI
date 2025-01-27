@@ -2,11 +2,11 @@ package org.example;
 
 import no.uib.cipr.matrix.DenseMatrix;
 
-public class LinearHypothesis implements HypothesisFunction {
+public class Sigmoid implements HypothesisFunction {
 
     private boolean normalize;
 
-    public LinearHypothesis(boolean normalize) {
+    public Sigmoid(boolean normalize) {
 
         this.normalize = normalize;
 
@@ -23,10 +23,14 @@ public class LinearHypothesis implements HypothesisFunction {
         else matrixX = operations.create(dataset.generateDesignMatrix());
 
         DenseMatrix matrixTheta = operations.create(theta);
-        //operations.printMatrix(matrixX);
-        //operations.printMatrix(matrixTheta);
+        DenseMatrix first = operations.multiply(operations.transpose(matrixTheta), operations.transpose(matrixX));
+        first = operations.transpose(first);
+        DenseMatrix second = operations.elementWiseExp((DenseMatrix) first.scale(-1.0));
+        DenseMatrix third = operations.addScalarToMatrix(second, 1.0);
 
-        return operations.multiply(matrixX, matrixTheta);
+        return operations.elementWiseInverse(third);
 
     }
+
 }
+

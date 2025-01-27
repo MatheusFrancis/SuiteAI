@@ -64,6 +64,90 @@ public class JMatrix {
         return result;
     }
 
+    public DenseMatrix add(DenseMatrix A, DenseMatrix B) {
+
+        if (A.numRows() != B.numRows() || A.numColumns() != B.numColumns()) {
+            throw new IllegalArgumentException("Matrices must have the same dimensions for subtraction.");
+        }
+
+        DenseMatrix result = new DenseMatrix(A.numRows(), A.numColumns());
+
+        for (int i = 0; i < A.numRows(); i++) {
+            for (int j = 0; j < A.numColumns(); j++) {
+                result.set(i, j, A.get(i, j) + B.get(i, j));
+            }
+        }
+
+        return result;
+    }
+
+    public DenseMatrix elementWiseExp(DenseMatrix denseMatrix) {
+
+        DenseMatrix result = new DenseMatrix(denseMatrix.numRows(), denseMatrix.numColumns());
+
+        for (int i = 0; i < denseMatrix.numRows(); i++) {
+
+            for (int j = 0; j < denseMatrix.numColumns(); j++) {
+
+                result.set(i, j, Math.exp(denseMatrix.get(i, j)));
+
+            }
+        }
+
+        return result;
+
+    }
+
+    public DenseMatrix elementWiseLog(DenseMatrix denseMatrix) {
+
+        DenseMatrix result = new DenseMatrix(denseMatrix.numRows(), denseMatrix.numColumns());
+
+        for (int i = 0; i < denseMatrix.numRows(); i++) {
+
+            for (int j = 0; j < denseMatrix.numColumns(); j++) {
+
+                result.set(i, j, Math.log(denseMatrix.get(i, j)));
+
+            }
+        }
+
+        return result;
+
+    }
+
+    public DenseMatrix elementWiseInverse(DenseMatrix denseMatrix) {
+
+        DenseMatrix result = new DenseMatrix(denseMatrix.numRows(), denseMatrix.numColumns());
+
+        for (int i = 0; i < denseMatrix.numRows(); i++) {
+
+            for (int j = 0; j < denseMatrix.numColumns(); j++) {
+
+                result.set(i, j, 1 / denseMatrix.get(i, j));
+            }
+        }
+
+        return result;
+
+    }
+
+    public DenseMatrix addScalarToMatrix(DenseMatrix denseMatrix, double scalar) {
+
+        DenseMatrix result = new DenseMatrix(denseMatrix.numRows(), denseMatrix.numColumns());
+
+        for (int i = 0; i < denseMatrix.numRows(); i++) {
+
+            for (int j = 0; j < denseMatrix.numColumns(); j++) {
+
+                result.set(i, j, denseMatrix.get(i, j) + scalar);
+
+            }
+        }
+
+        return result;
+
+    }
+
     public void printMatrix(DenseMatrix denseMatrix) {
 
         for (int i = 0; i < denseMatrix.numRows(); i++) {
@@ -90,4 +174,17 @@ public class JMatrix {
         return arrayConverted;
 
     }
+
+    public double[][] array1Dto2D(double[] array) {
+
+        double[][] array2D = new double[array.length][1];
+
+        for (int i = 0; i < array.length; i++) {
+            array2D[i][0] = array[i];
+        }
+
+
+        return array2D;
+    }
 }
+
