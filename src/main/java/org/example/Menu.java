@@ -11,11 +11,16 @@ public class Menu {
     private int model;
     private double[][] parameterMatrix;
     private boolean normalize;
+    private double[][] result;
 
     public Menu() {
 
         this.myScanner = new Scanner(System.in);
 
+    }
+
+    public int getTrainSetLength() {
+        return trainSet.generateDesignMatrix()[0].length;
     }
 
     public void openDataset() throws FileNotFoundException {
@@ -82,6 +87,10 @@ public class Menu {
         return this.normalize;
     }
 
+    public double[][] getResult() {
+        return result;
+    }
+
     public void runModel() {
         Model myModel;
         HypothesisFunction hypothesisFunction;
@@ -99,7 +108,8 @@ public class Menu {
 
             //predict values for the test set
             JMatrix example = new JMatrix();
-            example.printMatrix(hypothesisFunction.compute(this.testSet, modelFit));
+//            example.printMatrix();
+            this.result = example.convertToArray(hypothesisFunction.compute(this.testSet, modelFit));
         } else {
             hypothesisFunction =  new Sigmoid(this.normalize);
             lossFunction = new CrossEntropy(hypothesisFunction, this.normalize);

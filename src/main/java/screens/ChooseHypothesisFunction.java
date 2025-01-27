@@ -53,6 +53,10 @@ public class ChooseHypothesisFunction {
     }
 
     static private void continueButtonClick(CardLayout cl, JFrame mainFrame, Menu menu) {
-        cl.show(mainFrame.getContentPane(), "Optimizador");
+        menu.runModel();
+
+        mainFrame.add(ShowResults.getPanel(cl, mainFrame, menu), "Results");
+
+        cl.show(mainFrame.getContentPane(), "Results");
     }
 }

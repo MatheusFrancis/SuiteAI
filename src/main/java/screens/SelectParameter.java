@@ -5,6 +5,7 @@ import org.example.Menu;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // TODO: Precisa de parametros referentes a quantidade de colunas, ver Menu.runModel()
@@ -33,9 +34,8 @@ public class SelectParameter {
         inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
         inputsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-//        int inputCount = menu.getTrainSetLength();
+        int inputCount = menu.getTrainSetLength();
 
-        int inputCount = 13;
         for (int i = 0; i < inputCount; i++) {
             JLabel inputLabel = new JLabel("Parâmetro " + (i + 1) + ":");
             inputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -95,7 +95,7 @@ public class SelectParameter {
 
             parameterList[i][0] = Double.parseDouble(actualParameter);
         }
-
+        System.out.println(Arrays.deepToString(parameterList));
         menu.setParameter(parameterList);
         cl.show(mainFrame.getContentPane(), "Normalize");
     }

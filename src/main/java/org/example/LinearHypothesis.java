@@ -25,6 +25,10 @@ public class LinearHypothesis implements HypothesisFunction {
         DenseMatrix matrixTheta = operations.create(theta);
         //operations.printMatrix(matrixX);
         //operations.printMatrix(matrixTheta);
+        System.out.println(matrixX.numRows());
+        System.out.println(matrixX.numColumns());
+        System.out.println(matrixTheta.numRows());
+        System.out.println(matrixTheta.numColumns());
 
 
         return operations.multiply(matrixX, matrixTheta);
