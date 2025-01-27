@@ -26,6 +26,7 @@ public class LinearHypothesis implements HypothesisFunction {
         //operations.printMatrix(matrixX);
         //operations.printMatrix(matrixTheta);
 
+
         return operations.multiply(matrixX, matrixTheta);
 
     }

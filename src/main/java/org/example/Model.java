@@ -2,12 +2,12 @@ package org.example;
 
 public abstract class Model {
 
-    protected CostFunction costFunction;
+    protected HypothesisFunction hypothesisFunction;
     protected Optimizer optimizer;
 
-    public Model(CostFunction costFunction, Optimizer optimizer) {
+    public Model(HypothesisFunction hypothesisFunction, Optimizer optimizer) {
 
-        this.costFunction = costFunction;
+        this.hypothesisFunction = hypothesisFunction;
         this.optimizer = optimizer;
 
     }
@@ -15,7 +15,7 @@ public abstract class Model {
 
     public double[][] fit(Dataset data, double[][] parameters) {
 
-        return optimizer.compute(data, costFunction, parameters);
+        return optimizer.compute(data, hypothesisFunction, parameters);
 
     }
 

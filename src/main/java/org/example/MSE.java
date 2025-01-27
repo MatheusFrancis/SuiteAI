@@ -16,7 +16,7 @@ public class MSE implements CostFunction {
 
     @Override
     public double compute(Dataset dataset, double[][] parameters) {
-
+        System.out.println("tchau");
         int m = dataset.getInstances().size();
         double J = 0.0;
         DenseMatrix matrixH = hypothesisFunction.compute(dataset, parameters);

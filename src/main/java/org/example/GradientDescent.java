@@ -18,7 +18,7 @@ public class GradientDescent implements Optimizer {
     }
 
     @Override
-    public double[][] compute(Dataset dataset, CostFunction costFunction, double[][] parameters) {
+    public double[][] compute(Dataset dataset, HypothesisFunction hypothesisFunction, double[][] parameters) {
 
 
         int m = dataset.getInstances().size();
@@ -34,7 +34,7 @@ public class GradientDescent implements Optimizer {
             else matrixX = operations.create(dataset.generateDesignMatrix());
 
 
-            DenseMatrix matrixH = operations.multiply(matrixX, matrixTheta);
+            DenseMatrix matrixH = hypothesisFunction.compute(dataset, parameters);
 
             double[][] labelArray = {dataset.generateLabelArray()};
             DenseMatrix matrixY = operations.create(labelArray);
@@ -45,6 +45,7 @@ public class GradientDescent implements Optimizer {
             prediction.scale(learningRate / m);
 
             matrixTheta = operations.subtract(matrixTheta, prediction);
+            //operations.printMatrix(matrixTheta);
 
         }
 
