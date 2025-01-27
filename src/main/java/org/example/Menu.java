@@ -9,6 +9,7 @@ public class Menu {
     Dataset trainSet;
     Dataset testSet;
     private int model;
+    private String parameter;
 
     public Menu() {
 
@@ -59,11 +60,19 @@ public class Menu {
     }
 
     public void setModel(int selectedModel) {
-        model = selectedModel;
+        this.model = selectedModel;
     }
 
     public int getModel() {
         return this.model;
+    }
+
+    public void setParameter(String newParameter) {
+        this.parameter = newParameter;
+    }
+
+    public String getParameter() {
+        return this.parameter;
     }
 
     public void applyModel() {

@@ -1,22 +1,23 @@
-package screens.applyModel;
+package screens;
 
-import javax.smartcardio.Card;
+import org.example.Menu;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class ApplyModelParameterScreen {
-    static public JPanel getPanel(CardLayout cl, JFrame mainFrame) {
+public class SelectParameter {
+    static public JPanel getPanel(CardLayout cl, JFrame mainFrame, Menu menu) {
         JPanel frame = new JPanel();
 
         JPanel wrapperPanel = new JPanel(new GridBagLayout());
         JPanel principalPanel = new JPanel();
         principalPanel.setLayout(new BoxLayout(principalPanel, BoxLayout.PAGE_AXIS));
 
-        JLabel titleLabel = new JLabel("Aplicar Modelo");
+        JLabel titleLabel = new JLabel("Selecionar Parâmetro");
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 32));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitleLabel = new JLabel("Digite o valor do parametro theta");
+        JLabel subtitleLabel = new JLabel("Digite o valor do parâmetro theta");
         subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -26,7 +27,7 @@ public class ApplyModelParameterScreen {
         thetaInput.setHorizontalAlignment(JTextField.CENTER);
 
         JButton continueButton = new JButton("Continuar");
-        continueButton.addActionListener(_ -> continueClick(cl, mainFrame, thetaInput.getText()));
+        continueButton.addActionListener(_ -> continueClick(cl, mainFrame, thetaInput.getText(), menu));
 
         JButton backButton = new JButton("Voltar");
         backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "ApplyModel"));
@@ -47,13 +48,14 @@ public class ApplyModelParameterScreen {
         return frame;
     }
 
-    static private void continueClick(CardLayout cl, JFrame mainFrame, String parameter) {
+    static private void continueClick(CardLayout cl, JFrame mainFrame, String parameter, Menu menu) {
         if (parameter.isEmpty()) {
             JOptionPane.showMessageDialog(mainFrame, "Necessário valor", "Erro", JOptionPane.ERROR_MESSAGE);
 
             return;
         }
 
-        cl.show(mainFrame.getContentPane(), "ApplyModelDirectory");
+        menu.setParameter(parameter);
+        cl.show(mainFrame.getContentPane(), "");
     }
 }

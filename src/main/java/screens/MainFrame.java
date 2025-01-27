@@ -1,7 +1,5 @@
 package screens;
 
-import screens.applyModel.ApplyModelParameterScreen;
-
 import javax.swing.*;
 import java.awt.*;
 import org.example.Menu;
@@ -20,7 +18,7 @@ public class MainFrame {
 
         frame.add(MenuScreen.getPanel(cl, frame), "MenuScreen");
         frame.add(SelectModelType.getPanel(cl, frame, menu), "ModelType");
-        frame.add(ApplyModelParameterScreen.getPanel(cl, frame), "ApplyModelParameter");
+        frame.add(SelectParameter.getPanel(cl, frame, menu), "Parameter");
         frame.add(SelectTrainFile.getPanel(cl, frame, menu), "TrainFile");
         frame.add(SelectTestFile.getPanel(cl, frame, menu), "TestFile");
 

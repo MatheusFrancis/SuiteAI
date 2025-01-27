@@ -54,6 +54,6 @@ public class SelectModelType {
     static private void buttonClick(int model, CardLayout cl, JFrame mainFrame, Menu menu) {
         menu.setModel(model);
 
-        cl.show(mainFrame.getContentPane(), "ApplyModelParameter");
+        cl.show(mainFrame.getContentPane(), "Parameter");
     }
 }
