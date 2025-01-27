@@ -19,7 +19,7 @@ public class MainFrame {
         CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
 
         frame.add(MenuScreen.getPanel(cl, frame), "MenuScreen");
-        frame.add(ApplyModelFlowOptionsScreen.getPanel(cl, frame), "ApplyModel");
+        frame.add(SelectModelType.getPanel(cl, frame, menu), "ModelType");
         frame.add(ApplyModelParameterScreen.getPanel(cl, frame), "ApplyModelParameter");
         frame.add(SelectTrainFile.getPanel(cl, frame, menu), "TrainFile");
         frame.add(SelectTestFile.getPanel(cl, frame, menu), "TestFile");

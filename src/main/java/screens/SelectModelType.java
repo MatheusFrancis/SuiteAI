@@ -1,10 +1,12 @@
 package screens;
 
+import org.example.Menu;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class ApplyModelFlowOptionsScreen {
-    static public JPanel getPanel(CardLayout cl, JFrame mainFrame) {
+public class SelectModelType {
+    static public JPanel getPanel(CardLayout cl, JFrame mainFrame, Menu menu) {
         JPanel frame = new JPanel();
 
         JPanel wrapperPanel = new JPanel(new GridBagLayout());
@@ -13,25 +15,22 @@ public class ApplyModelFlowOptionsScreen {
 
         JPanel buttonsPanel = new JPanel();
         JButton button1 = new JButton("Regressão Linear");
-        button1.addActionListener(_ -> buttonClick("", cl, mainFrame));
+        button1.addActionListener(_ -> buttonClick(1, cl, mainFrame, menu));
         JButton button2 = new JButton("Regressão Logística");
-        button2.addActionListener(_ -> buttonClick("", cl, mainFrame));
-        JButton button3 = new JButton("-------");
+        button2.addActionListener(_ -> buttonClick(2, cl, mainFrame, menu));
 
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
         buttonsPanel.add(button1);
         buttonsPanel.add(button2);
-        buttonsPanel.add(button3);
 
         button1.setAlignmentX(Component.CENTER_ALIGNMENT);
         button2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button3.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel titleLabel = new JLabel("Aplicar Modelo");
+        JLabel titleLabel = new JLabel("Selectionar Modelo");
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 32));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitleLabel = new JLabel("Escolha a forma");
+        JLabel subtitleLabel = new JLabel("Escolha o Modelo");
         subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -52,7 +51,9 @@ public class ApplyModelFlowOptionsScreen {
         return frame;
     }
 
-    static private void buttonClick(String model, CardLayout cl, JFrame mainFrame) {
+    static private void buttonClick(int model, CardLayout cl, JFrame mainFrame, Menu menu) {
+        menu.setModel(model);
+
         cl.show(mainFrame.getContentPane(), "ApplyModelParameter");
     }
 }

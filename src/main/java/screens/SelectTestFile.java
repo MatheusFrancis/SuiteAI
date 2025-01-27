@@ -60,7 +60,7 @@ public class SelectTestFile {
         try {
             menu.openTestDataset(filePath);
 
-            cl.show(mainFrame.getContentPane(), "ApplyModel");
+            cl.show(mainFrame.getContentPane(), "ModelType");
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(mainFrame, "Arquivo não suportado", "Erro", JOptionPane.ERROR_MESSAGE);
 

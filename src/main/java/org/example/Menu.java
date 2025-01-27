@@ -8,6 +8,7 @@ public class Menu {
     private Scanner myScanner;
     Dataset trainSet;
     Dataset testSet;
+    private int model;
 
     public Menu() {
 
@@ -57,6 +58,13 @@ public class Menu {
 
     }
 
+    public void setModel(int selectedModel) {
+        model = selectedModel;
+    }
+
+    public int getModel() {
+        return this.model;
+    }
 
     public void applyModel() {
 
