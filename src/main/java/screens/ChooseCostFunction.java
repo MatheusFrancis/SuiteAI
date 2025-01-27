@@ -53,6 +53,6 @@ public class ChooseCostFunction {
     }
 
     static private void continueButtonClick(CardLayout cl, JFrame mainFrame, Menu menu) {
-        cl.show(mainFrame.getContentPane(), "Optimizador");
+        cl.show(mainFrame.getContentPane(), "Optimizer");
     }
 }
