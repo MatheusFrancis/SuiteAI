@@ -22,6 +22,7 @@ public class MainFrame {
         frame.add(ApplyModelFlowOptionsScreen.getPanel(cl, frame), "ApplyModel");
         frame.add(ApplyModelParameterScreen.getPanel(cl, frame), "ApplyModelParameter");
         frame.add(SelectTrainFile.getPanel(cl, frame, menu), "TrainFile");
+        frame.add(SelectTestFile.getPanel(cl, frame, menu), "TestFile");
 
         frame.setVisible(true);
     }

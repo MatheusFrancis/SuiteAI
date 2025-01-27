@@ -65,17 +65,10 @@ public class SelectTestFile {
         int result = fileChooser.showOpenDialog(mainFrame);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            try {
-                File selectedDirectory = fileChooser.getSelectedFile();
-                filePath = selectedDirectory.getAbsolutePath();
-                directoryLabel.setText("Arquivo Selecionado: " + filePath);
-                continueButton.setVisible(true);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(mainFrame, "Arquivo não suportado", "Erro", JOptionPane.ERROR_MESSAGE);
-
-                return;
-            }
-
+            File selectedDirectory = fileChooser.getSelectedFile();
+            filePath = selectedDirectory.getAbsolutePath();
+            directoryLabel.setText("Arquivo Selecionado: " + filePath);
+            continueButton.setVisible(true);
         } else {
             directoryLabel.setText("Nenhum arquivo selecionado");
             filePath = "";
