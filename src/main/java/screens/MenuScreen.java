@@ -14,15 +14,12 @@ public class MenuScreen {
 
         JPanel buttonsPanel = new JPanel();
         JButton button1 = new JButton("Abrir Conjunto de Dados");
-        JButton button2 = new JButton("Ajustar Modelo");
-        button2.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "ApplyModel"));
+        button1.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "TrainFile"));
 
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
         buttonsPanel.add(button1);
-        buttonsPanel.add(button2);
 
         button1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button2.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel titleLabel = new JLabel("SuiteAI");
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 32));
