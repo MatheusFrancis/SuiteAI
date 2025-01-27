@@ -56,6 +56,6 @@ public class SelectParameter {
         }
 
         menu.setParameter(parameter);
-        cl.show(mainFrame.getContentPane(), "");
+        cl.show(mainFrame.getContentPane(), "Normalize");
     }
 }

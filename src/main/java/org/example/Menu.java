@@ -10,6 +10,7 @@ public class Menu {
     Dataset testSet;
     private int model;
     private String parameter;
+    private boolean normalize;
 
     public Menu() {
 
@@ -73,6 +74,14 @@ public class Menu {
 
     public String getParameter() {
         return this.parameter;
+    }
+
+    public void setNormalize(boolean normalize) {
+        this.normalize = normalize;
+    }
+
+    public boolean getNormalize() {
+        return this.normalize;
     }
 
     public void applyModel() {
