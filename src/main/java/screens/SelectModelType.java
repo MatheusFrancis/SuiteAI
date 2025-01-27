@@ -53,6 +53,7 @@ public class SelectModelType {
 
     static private void buttonClick(int model, CardLayout cl, JFrame mainFrame, Menu menu) {
         menu.setModel(model);
+        mainFrame.add(SelectParameter.getPanel(cl, mainFrame, menu), "Parameter");
 
         cl.show(mainFrame.getContentPane(), "Parameter");
     }
