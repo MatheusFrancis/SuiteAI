@@ -54,6 +54,7 @@ public class SelectModelType {
     static private void buttonClick(int model, CardLayout cl, JFrame mainFrame, Menu menu) {
         menu.setModel(model);
         mainFrame.add(SelectParameter.getPanel(cl, mainFrame, menu), "Parameter");
+        mainFrame.add(SelectParameter.getPanel(cl, mainFrame, menu), "Hypothesis");
 
         cl.show(mainFrame.getContentPane(), "Parameter");
     }

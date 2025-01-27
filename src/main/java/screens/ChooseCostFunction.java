@@ -34,7 +34,7 @@ public class ChooseCostFunction {
         continueButton.addActionListener(_ -> continueButtonClick(cl, mainFrame, menu));
 
         JButton backButton = new JButton("Voltar");
-        backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "MenuScreen"));
+        backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "Normalize"));
 
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 

@@ -35,7 +35,7 @@ public class ChooseNormalize {
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton backButton = new JButton("Voltar");
-        backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "MenuScreen"));
+        backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "Parameter"));
 
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 

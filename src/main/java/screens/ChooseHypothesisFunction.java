@@ -5,7 +5,7 @@ import org.example.Menu;
 import javax.swing.*;
 import java.awt.*;
 
-public class ChooseOptimizer {
+public class ChooseHypothesisFunction {
     static private JButton continueButton;
 
     static public JPanel getPanel(CardLayout cl, JFrame mainFrame, Menu menu) {
@@ -15,16 +15,17 @@ public class ChooseOptimizer {
         JPanel principalPanel = new JPanel();
         principalPanel.setLayout(new BoxLayout(principalPanel, BoxLayout.PAGE_AXIS));
 
-        String[] options = {"Gradiente descendente"};
-        JComboBox<String> dropdown = new JComboBox<>(options);
+        String[] optionsLinear = {"Hipótese Linear"};
+        String[] optionsLogistic = {"Sigmóide"};
+        JComboBox<String> dropdown = new JComboBox<>(menu.getModel() == 1 ? optionsLinear : optionsLogistic);
         dropdown.setMaximumSize(new Dimension(200, 30));
         dropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel titleLabel = new JLabel("Otimizador");
+        JLabel titleLabel = new JLabel("Função Hipótese");
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 32));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitleLabel = new JLabel("Escolha um Otimizador");
+        JLabel subtitleLabel = new JLabel("Escolha uma Função Hipótese");
         subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -33,7 +34,7 @@ public class ChooseOptimizer {
         continueButton.addActionListener(_ -> continueButtonClick(cl, mainFrame, menu));
 
         JButton backButton = new JButton("Voltar");
-        backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "CostFunction"));
+        backButton.addActionListener(_ -> cl.show(mainFrame.getContentPane(), "Optimizer"));
 
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -52,6 +53,6 @@ public class ChooseOptimizer {
     }
 
     static private void continueButtonClick(CardLayout cl, JFrame mainFrame, Menu menu) {
-        cl.show(mainFrame.getContentPane(), "Hypothesis");
+        cl.show(mainFrame.getContentPane(), "Optimizador");
     }
 }
