@@ -5,7 +5,7 @@ import org.example.Menu;
 import javax.swing.*;
 import java.awt.*;
 
-public class ChooseCostFunction {
+public class ChooseOptimizer {
     static private JButton continueButton;
 
     static public JPanel getPanel(CardLayout cl, JFrame mainFrame, Menu menu) {
@@ -15,17 +15,16 @@ public class ChooseCostFunction {
         JPanel principalPanel = new JPanel();
         principalPanel.setLayout(new BoxLayout(principalPanel, BoxLayout.PAGE_AXIS));
 
-        String[] optionsLinear = {"MSE (Mean Squared Error)"};
-        String[] optionsLogistic = {"Cross-Entropy"};
-        JComboBox<String> dropdown = new JComboBox<>(menu.getModel() == 1 ? optionsLinear : optionsLogistic);
+        String[] options = {"Gradiente descendente"};
+        JComboBox<String> dropdown = new JComboBox<>(options);
         dropdown.setMaximumSize(new Dimension(200, 30));
         dropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel titleLabel = new JLabel("Função de Custo");
+        JLabel titleLabel = new JLabel("Otimizador");
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 32));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitleLabel = new JLabel("Escolha uma Função de Custo");
+        JLabel subtitleLabel = new JLabel("Escolha um Otimizador");
         subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -53,6 +52,6 @@ public class ChooseCostFunction {
     }
 
     static private void continueButtonClick(CardLayout cl, JFrame mainFrame, Menu menu) {
-        cl.show(mainFrame.getContentPane(), "Optimizador");
+        cl.show(mainFrame.getContentPane(), "");
     }
 }

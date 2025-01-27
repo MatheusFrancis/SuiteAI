@@ -21,6 +21,7 @@ public class MainFrame {
         frame.add(SelectTrainFile.getPanel(cl, frame, menu), "TrainFile");
         frame.add(SelectTestFile.getPanel(cl, frame, menu), "TestFile");
         frame.add(ChooseNormalize.getPanel(cl, frame, menu), "Normalize");
+        frame.add(ChooseOptimizer.getPanel(cl, frame, menu), "Optimizer");
 
         frame.setVisible(true);
     }
