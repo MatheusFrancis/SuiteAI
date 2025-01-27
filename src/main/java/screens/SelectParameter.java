@@ -5,6 +5,8 @@ import org.example.Menu;
 import javax.swing.*;
 import java.awt.*;
 
+// TODO: Precisa de parametros referentes a quantidade de colunas, ver Menu.runModel()
+
 public class SelectParameter {
     static public JPanel getPanel(CardLayout cl, JFrame mainFrame, Menu menu) {
         JPanel frame = new JPanel();

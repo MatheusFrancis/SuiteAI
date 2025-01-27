@@ -84,6 +84,34 @@ public class Menu {
         return this.normalize;
     }
 
+    public void runModel() {
+        Model myModel;
+        HypothesisFunction hypothesisFunction;
+        CostFunction lossFunction;
+        Optimizer gradientDescent;
+
+        if (this.model == 1) {
+            hypothesisFunction = new LinearHypothesis(this.normalize);
+            lossFunction = new MSE(hypothesisFunction);
+            gradientDescent = new GradientDescent(0.01, 400, this.normalize);
+
+            myModel = new LinearRegression(lossFunction, gradientDescent);
+            double[][] parameterList = new double[this.trainSet.generateDesignMatrix()[0].length][1];
+
+            double[][] modelFit = myModel.fit(this.trainSet, parameterList);
+
+            //predict values for the test set
+            JMatrix example = new JMatrix();
+            example.printMatrix(hypothesisFunction.compute(this.testSet, modelFit));
+        } else {
+            hypothesisFunction =  new Sigmoid(this.normalize);
+            lossFunction = new CrossEntropy(hypothesisFunction, this.normalize);
+            gradientDescent = new GradientDescent(0.01, 400, this.normalize);
+
+            myModel = new LogisticRegression(lossFunction, gradientDescent);
+        }
+    }
+
     public void applyModel() {
 
         Model myModel;
