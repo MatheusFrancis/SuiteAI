@@ -9,10 +9,10 @@ import java.io.FileNotFoundException;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
-        //MainFrame.showMainFrame();
-        Menu myMenu = new Menu();
-        myMenu.openDataset();
-        myMenu.applyModel();
+        MainFrame.showMainFrame();
+        // Menu myMenu = new Menu();
+        // myMenu.openDataset();
+        // myMenu.applyModel();
         //myMenu.plotDataset();
 
     }
