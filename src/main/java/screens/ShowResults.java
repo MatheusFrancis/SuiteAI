@@ -4,6 +4,9 @@ import org.example.Menu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -47,10 +50,15 @@ public class ShowResults {
 
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JButton saveButton = new JButton("Salvar Resultados");
+        saveButton.addActionListener(_ -> saveResultsToFile(menu));
+        saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         principalPanel.add(titleLabel);
         principalPanel.add(Box.createVerticalStrut(200));
         principalPanel.add(scrollPane);
         principalPanel.add(Box.createVerticalStrut(20));
+        principalPanel.add(saveButton);
 //        principalPanel.add(continueButton);
         principalPanel.add(backButton);
         wrapperPanel.add(principalPanel);
@@ -59,7 +67,17 @@ public class ShowResults {
         return frame;
     }
 
-    static private void continueButtonClick(CardLayout cl, JFrame mainFrame, Menu menu) {
-        cl.show(mainFrame.getContentPane(), "Hypothesis");
+    static private void saveResultsToFile(Menu menu) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("resultados.txt"))) {
+            for (double[] resultArr : menu.getResult()) {
+                for (double value : resultArr) {
+                    writer.write(value + " ");
+                }
+                writer.newLine();
+            }
+            JOptionPane.showMessageDialog(null, "Resultados salvos em 'resultados.txt'", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar o arquivo!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
