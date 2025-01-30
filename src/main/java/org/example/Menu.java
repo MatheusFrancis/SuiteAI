@@ -2,6 +2,7 @@ package org.example;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import javax.swing.*;
+import javax.xml.crypto.Data;
 
 public class Menu {
 
@@ -26,10 +27,12 @@ public class Menu {
     public void openDataset() throws FileNotFoundException {
 
         trainSet = new Dataset();
-        trainSet.importFile("/home/matheus/housingTraining.txt");
+        trainSet.importFile("/home/matheus/Downloads/california_housing_train.txt");
 
         testSet = new Dataset();
-        testSet.importFile("/home/matheus/housingTest.txt");
+        testSet.importFile("/home/matheus/Downloads/california_housing_test.txt");
+
+
     }
 
     public void openTrainDataset(String path) throws FileNotFoundException {
@@ -136,7 +139,7 @@ public class Menu {
         System.out.println("Digite o valor inicial do parâmetro theta: ");
         for (int i = 0; i < trainSet.generateDesignMatrix()[0].length; i++) {
 
-            System.out.println("Valor de theta " + i + " :" );
+            System.out.println("Valor de theta " + i + " :");
             parameter[i][0] = myScanner.nextDouble();
 
         }
@@ -165,27 +168,27 @@ public class Menu {
             example.printMatrix(hypothesisFunction.compute(testSet, parameter));
 
 
+        } else {
 
-
-
-
-        }
-
-        else {
-
-            hypothesisFunction =  new Sigmoid(normalize);
-            lossFunction = new CrossEntropy(hypothesisFunction, normalize);
+            hypothesisFunction = new Sigmoid(normalize);
+            //lossFunction = new CrossEntropy(hypothesisFunction, normalize);
             gradientDescent = new GradientDescent(0.01, 400, normalize);
 
             myModel = new LogisticRegression(hypothesisFunction, gradientDescent);
+            parameter = myModel.fit(trainSet, parameter);
 
+
+            for (int i = 0; i < parameter.length; i++) {
+
+                System.out.println(parameter[i][0]);
+
+            }
+
+            lossFunction = new CrossEntropy(hypothesisFunction, normalize);
+            //lossFunction.compute(testSet,parameter);
 
 
         }
 
-
     }
-
-
-
 }

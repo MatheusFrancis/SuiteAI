@@ -31,6 +31,7 @@ public class LinearHypothesis implements HypothesisFunction {
         System.out.println(matrixTheta.numColumns());
 
 
+
         return operations.multiply(matrixX, matrixTheta);
 
     }
