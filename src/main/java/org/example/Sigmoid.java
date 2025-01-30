@@ -24,8 +24,11 @@ public class Sigmoid implements HypothesisFunction {
 
         DenseMatrix matrixTheta = operations.create(theta);
         DenseMatrix first = operations.multiply(operations.transpose(matrixTheta), operations.transpose(matrixX));
+
         first = operations.transpose(first);
+
         DenseMatrix second = operations.elementWiseExp((DenseMatrix) first.scale(-1.0));
+
         DenseMatrix third = operations.addScalarToMatrix(second, 1.0);
 
         return operations.elementWiseInverse(third);

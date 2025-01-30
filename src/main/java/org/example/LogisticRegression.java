@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class LogisticRegression extends Model{
 
 
-    public LogisticRegression(CostFunction costFunction, Optimizer optimizer) {
-        super(costFunction, optimizer);
-        this.costFunction = costFunction;
+    public LogisticRegression(HypothesisFunction hypothesisFunction, Optimizer optimizer) {
+        super(hypothesisFunction, optimizer);
+        this.hypothesisFunction = hypothesisFunction;
         this.optimizer = optimizer;
 
     }

@@ -34,10 +34,11 @@ public class CrossEntropy implements CostFunction{
         DenseMatrix computed = hypothesisFunction.compute(dataset, operations.convertToArray(theta));
 
         DenseMatrix cost = operations.multiply(operations.transpose(y), operations.elementWiseLog(computed));
-
-        cost = operations.add(cost, operations.transpose(operations.addScalarToMatrix((DenseMatrix) y.scale(-1.0), 1)));
-        cost = operations.multiply(cost, operations.elementWiseLog(operations.addScalarToMatrix((DenseMatrix)computed.scale(-1.0), 1)));
+        DenseMatrix aux = operations.transpose(operations.addScalarToMatrix((DenseMatrix) y.scale(-1.0), 1));
+        aux = operations.multiply(aux, operations.elementWiseLog(operations.addScalarToMatrix((DenseMatrix)computed.scale(-1.0), 1)));
+        cost = operations.add(cost, aux);
         J = cost.get(0, 0);
+        //System.out.println(J);
         return J;
 
     }

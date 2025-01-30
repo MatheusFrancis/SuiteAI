@@ -3,7 +3,7 @@ package org.example;
 public interface Optimizer {
 
 
-    public double[][] compute(Dataset dataset, CostFunction costFunction, double[][] parameters);
+    public double[][] compute(Dataset dataset, HypothesisFunction hypothesisFunction, double[][] parameters);
 
 
 }

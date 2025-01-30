@@ -16,9 +16,10 @@ public class StatisticalMatrix {
 
                 mean[i] += matrix[j][i + 1];
 
+
             }
 
-            mean[i] /= numRows + 1;
+            mean[i] /= numRows;
 
         }
 
@@ -43,7 +44,7 @@ public class StatisticalMatrix {
 
             }
 
-            std[i] /= numRows + 1;
+            std[i] /= numRows - 1;
             std[i] = Math.sqrt(std[i]);
 
         }

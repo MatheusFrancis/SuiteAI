@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class LinearRegression extends Model{
 
 
-    public LinearRegression(CostFunction costFunction, Optimizer optimizer) {
-        super(costFunction, optimizer);
-        this.costFunction = costFunction;
+    public LinearRegression(HypothesisFunction hypothesisFunction, Optimizer optimizer) {
+        super(hypothesisFunction, optimizer);
+        this.hypothesisFunction = hypothesisFunction;
         this.optimizer = optimizer;
 
     }

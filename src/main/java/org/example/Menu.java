@@ -2,12 +2,17 @@ package org.example;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import javax.swing.*;
+import javax.xml.crypto.Data;
 
 public class Menu {
 
     private Scanner myScanner;
     Dataset trainSet;
     Dataset testSet;
+    private int model;
+    private double[][] parameterMatrix;
+    private boolean normalize;
+    private double[][] result;
 
     public Menu() {
 
@@ -15,17 +20,30 @@ public class Menu {
 
     }
 
+    public int getTrainSetLength() {
+        return trainSet.generateDesignMatrix()[0].length;
+    }
+
     public void openDataset() throws FileNotFoundException {
 
         trainSet = new Dataset();
-        trainSet.importFile("/home/matheus/housingTraining.txt");
+        trainSet.importFile("/home/matheus/Downloads/california_housing_train.txt");
 
         testSet = new Dataset();
-        testSet.importFile("/home/matheus/housingTest.txt");
+        testSet.importFile("/home/matheus/Downloads/california_housing_test.txt");
 
 
     }
 
+    public void openTrainDataset(String path) throws FileNotFoundException {
+        trainSet = new Dataset();
+        trainSet.importFile(path);
+    }
+
+    public void openTestDataset(String path) throws FileNotFoundException {
+        testSet = new Dataset();
+        testSet.importFile(path);
+    }
 
     public void plotDataset() {
 
@@ -48,6 +66,61 @@ public class Menu {
 
     }
 
+    public void setModel(int selectedModel) {
+        this.model = selectedModel;
+    }
+
+    public int getModel() {
+        return this.model;
+    }
+
+    public void setParameter(double[][] newParameter) {
+        this.parameterMatrix = newParameter;
+    }
+
+    public double[][] getParameter() {
+        return this.parameterMatrix;
+    }
+
+    public void setNormalize(boolean normalize) {
+        this.normalize = normalize;
+    }
+
+    public boolean getNormalize() {
+        return this.normalize;
+    }
+
+    public double[][] getResult() {
+        return result;
+    }
+
+    public void runModel() {
+        Model myModel;
+        HypothesisFunction hypothesisFunction;
+        CostFunction lossFunction;
+        Optimizer gradientDescent;
+
+        if (this.model == 1) {
+            hypothesisFunction = new LinearHypothesis(this.normalize);
+            lossFunction = new MSE(hypothesisFunction);
+            gradientDescent = new GradientDescent(0.01, 400, this.normalize);
+
+            myModel = new LinearRegression(hypothesisFunction, gradientDescent);
+
+            double[][] modelFit = myModel.fit(this.trainSet, parameterMatrix);
+
+            //predict values for the test set
+            JMatrix example = new JMatrix();
+//            example.printMatrix();
+            this.result = example.convertToArray(hypothesisFunction.compute(this.testSet, modelFit));
+        } else {
+            hypothesisFunction =  new Sigmoid(this.normalize);
+            lossFunction = new CrossEntropy(hypothesisFunction, this.normalize);
+            gradientDescent = new GradientDescent(0.01, 400, this.normalize);
+
+            myModel = new LogisticRegression(hypothesisFunction, gradientDescent);
+        }
+    }
 
     public void applyModel() {
 
@@ -66,7 +139,7 @@ public class Menu {
         System.out.println("Digite o valor inicial do parâmetro theta: ");
         for (int i = 0; i < trainSet.generateDesignMatrix()[0].length; i++) {
 
-            System.out.println("Valor de theta " + i + " :" );
+            System.out.println("Valor de theta " + i + " :");
             parameter[i][0] = myScanner.nextDouble();
 
         }
@@ -86,7 +159,7 @@ public class Menu {
             lossFunction = new MSE(hypothesisFunction);
             gradientDescent = new GradientDescent(0.01, 400, normalize);
 
-            myModel = new LinearRegression(lossFunction, gradientDescent);
+            myModel = new LinearRegression(hypothesisFunction, gradientDescent);
 
             parameter = myModel.fit(trainSet, parameter);
 
@@ -95,27 +168,27 @@ public class Menu {
             example.printMatrix(hypothesisFunction.compute(testSet, parameter));
 
 
+        } else {
 
-
-
-
-        }
-
-        else {
-
-            hypothesisFunction =  new Sigmoid(normalize);
-            lossFunction = new CrossEntropy(hypothesisFunction, normalize);
+            hypothesisFunction = new Sigmoid(normalize);
+            //lossFunction = new CrossEntropy(hypothesisFunction, normalize);
             gradientDescent = new GradientDescent(0.01, 400, normalize);
 
-            myModel = new LogisticRegression(lossFunction, gradientDescent);
+            myModel = new LogisticRegression(hypothesisFunction, gradientDescent);
+            parameter = myModel.fit(trainSet, parameter);
 
+
+            for (int i = 0; i < parameter.length; i++) {
+
+                System.out.println(parameter[i][0]);
+
+            }
+
+            lossFunction = new CrossEntropy(hypothesisFunction, normalize);
+            //lossFunction.compute(testSet,parameter);
 
 
         }
 
-
     }
-
-
-
 }
