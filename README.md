@@ -2,7 +2,7 @@
 Trabalho como parte da avaliação da disciplina de Programação Orientada a Objetos
 
 ## Status
-Em andamento
+Concluído (Adições de mais funcionalidades no futuro)
 
 ## Equipe
 João Pedro Moura e 
